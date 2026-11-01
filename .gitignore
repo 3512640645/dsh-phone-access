@@ -1,0 +1,23 @@
+# 运行时产物（含访问密钥/地址/日志，绝不入库）
+phone-key.txt
+public-url.txt
+phone-url.txt
+tailscale-url.txt
+*.log
+proxy.log
+watchdog.log
+
+# 下载的二进制（体积大，用脚本现下）
+bin/
+*.exe
+*.msi
+
+# 截图与浏览器配置
+shots/
+.edge-profile/
+
+# 本地跑出来的流程文件（里面带真实地址与密钥）
+tools/flow-debug*.json
+tools/flow-ui.json
+tools/flow-chat*.json
+tools/flow-final.json
