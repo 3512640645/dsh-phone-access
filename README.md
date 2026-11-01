@@ -6,6 +6,32 @@
 
 English: a reverse proxy + mobile UI layer that makes the DSH Desktop web GUI usable from a phone over LAN, Cloudflare Tunnel or Tailscale, **without modifying any DSH file**.
 
+## 演示视频（45 秒）
+
+[![演示视频封面](assets/poster.png)](assets/demo.mp4)
+
+![演示动图](assets/demo-preview.gif)
+
+| 文件 | 规格 | 说明 |
+|---|---|---|
+| [`assets/demo.mp4`](assets/demo.mp4) | 1920×1080 · 30fps · 45s · H.264 + AAC | 正片，带配乐（-13 LUFS），4.5 MB |
+| `assets/demo-preview.gif` | 520px · 8fps | README 内联预览 |
+
+片子讲了六件事：**403 信任栅栏 → 网关头部重写 → 三种入口（LAN / 隧道 / Tailscale）→ 手机端 UI 适配 → 踩过的三个坑 → 守护自愈与开源发布**。
+
+画面不是录屏，而是**逐帧由时间轴函数 `seek(t)` 算出来的**：任意时刻的画面都由该时刻唯一决定，所以导出稳定可复现。生成脚本都在 `tools/` 里：
+
+```bash
+# 1) 渲染画面帧（本机 Edge 无头 + CDP 逐帧截图）并编码成无声 MP4
+node tools/render-video.mjs --fps 30 --out out/silent.mp4
+
+# 2) 合成配乐（分轨 + 卷积混响 + 总线压缩，纯程序合成，无第三方素材）
+python tools/make-audio2.py
+
+# 3) 混流
+ffmpeg -i out/silent.mp4 -i out/audio2.wav -c:v copy -c:a aac -b:a 224k -shortest out/demo.mp4
+```
+
 ---
 
 ## 工作原理
