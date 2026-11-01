@@ -1,0 +1,11 @@
+[
+  { "goto": "http://<YOUR_HOST>:8080/?k=<YOUR_KEY>", "sleep": 20000 },
+  { "eval": "JSON.stringify({mobileCss: !!document.querySelector('#dsh-phone-adapt'), mobileJs: !!window.__dshPhoneShell, rail: Math.round(document.querySelector('[class*=\"_sidebarCol\"]').getBoundingClientRect().width), center: Math.round(document.querySelector('[class*=\"_centerCol\"]').getBoundingClientRect().width)})" },
+  { "shot": "shots/01-hero.png" },
+  { "click": "[class*=\"_sidebarCol\"] button", "sleep": 3000 },
+  { "eval": "JSON.stringify({backdrop: !!document.querySelector('#dsh-phone-backdrop.dsh-phone-backdrop-on'), panel: Math.round(document.querySelector('[class*=\"_sidebarCol\"] > div > div').getBoundingClientRect().width)})" },
+  { "shot": "shots/02-drawer.png" },
+  { "clickEval": "const row=document.querySelector('[class*=\"sessionRow\"]');if(!row)return null;row.scrollIntoView({block:'center'});const r=row.getBoundingClientRect();return {x:Math.round(r.left+r.width*0.35),y:Math.round(r.top+r.height/2),label:'session'}", "sleep": 7000 },
+  { "eval": "JSON.stringify({collapsed: document.querySelector('[class*=\"_frame\"]')?.getAttribute('data-sidebar-collapsed'), backdrop: !!document.querySelector('#dsh-phone-backdrop.dsh-phone-backdrop-on')})" },
+  { "shot": "shots/03-chat.png" }
+]

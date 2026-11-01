@@ -1,0 +1,268 @@
+/* ===========================================================================
+   DSH 手机端适配样式  (v2)
+   由 dsh-phone-access 网关在提供 index.html 时注入，只对移动端 UA 生效，
+   桌面端与 Electron 窗口完全不受影响。改完保存即生效（网关按 mtime 热加载）。
+
+   选择器策略：DSH 的样式是构建期 CSS Module（形如 pI_x6G_sidebarCol），
+   hash 每次构建都变，所以统一用 [class*="_后缀"] 兜住稳定后缀，
+   再叠加 [data-slot] / [data-sidebar-collapsed] 这类稳定标记。
+   =========================================================================== */
+
+:root {
+  --dsh-phone-safe-top: env(safe-area-inset-top, 0px);
+  --dsh-phone-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --dsh-phone-rail: 48px;
+  --dsh-phone-panel: min(86vw, 340px);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  overscroll-behavior-y: none;
+}
+
+/* 收敛横向溢出，避免整页左右晃 */
+body,
+#root {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+/* 覆盖式滚动条：隐藏后留白更干净 */
+*,
+*::before,
+*::after {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* ---------------------------------------------------------------- 骨架 */
+[class*="_frame"] {
+  padding-top: var(--dsh-phone-safe-top);
+}
+[class*="_sidebarCol"] {
+  width: var(--dsh-phone-rail) !important;
+}
+[class*="_centerCol"] {
+  min-width: 0 !important;
+}
+
+/* 触控目标：图标栏按钮不低于 44px */
+[class*="_sidebarCol"] button,
+[class*="_sidebarCol"] [role="button"],
+[data-slot="sidebar"] button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ------------------------------------------------------------ 输入区 */
+/* 16px 以上，避免 iOS 聚焦时自动放大整页 */
+[class*="_input"],
+textarea,
+input:not([type="checkbox"]):not([type="radio"]),
+[contenteditable="true"] {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
+[class*="_input"] {
+  min-height: 56px !important;
+  padding: 12px 14px !important;
+  border-radius: 18px !important;
+}
+
+/* --------------------------------------------------------- 首页 hero */
+[class*="_composerStack"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: calc(24px + var(--dsh-phone-safe-bottom)) !important;
+  gap: 10px !important;
+}
+
+[class*="_composerStack"] h1,
+[class*="_composerStack"] h2,
+[class*="_composerStack"] [class*="_title"] {
+  font-size: clamp(19px, 5.6vw, 24px) !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+[class*="_composerSeat"] {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* 工作区 / 模式 / PPT / Word / Excel 这一排在手机上会被裁掉：
+   改成横向可滑动，并且不换行 */
+[class*="_heroWorkspaceRow"] {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 0 14px 4px !important;
+  gap: 4px !important;
+  flex-wrap: nowrap !important;
+  -webkit-overflow-scrolling: touch;
+}
+[class*="_heroWorkspaceRow"] > * {
+  flex: 0 0 auto;
+}
+/* 这一排的胶囊按钮在窄屏上收紧一点，能多放下一个 */
+[class*="_heroWorkspaceRow"] button {
+  padding-left: 6px !important;
+  padding-right: 6px !important;
+  min-height: 30px !important;
+  font-size: 12.5px !important;
+}
+
+/* 输入框下方工具栏：按钮不挤在一起 */
+[class*="_composerStack"] button {
+  min-height: 36px;
+}
+[class*="_composerStack"] [class*="_toolbar"] {
+  flex-wrap: wrap;
+  gap: 6px !important;
+}
+
+/* ------------------------------------------- 手机上的侧栏：改成覆盖抽屉 */
+/* 抽屉遮罩：点一下即收起（由 mobile.js 控制显隐） */
+#dsh-phone-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+#dsh-phone-backdrop.dsh-phone-backdrop-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (max-width: 720px) {
+  /* 侧栏轨道永远是 48px，展开的面板浮在内容之上，不挤压正文 */
+  [class*="_frame"] {
+    grid-template-columns: var(--dsh-phone-rail) minmax(0, 1fr) minmax(0, 0px) !important;
+  }
+  [class*="_sidebarCol"] {
+    overflow: visible !important;
+    position: relative;
+    z-index: 60;
+  }
+
+  /* 收起状态：绝对不要动尺寸，保持原生的 48px 图标栏 */
+  [class*="_frame"][data-sidebar-collapsed="true"] [class*="_sidebarCol"] > div > div {
+    width: var(--dsh-phone-rail) !important;
+    max-width: var(--dsh-phone-rail) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* 展开状态（没有 data-sidebar-collapsed="true"）才做成悬浮抽屉 */
+  [class*="_frame"]:not([data-sidebar-collapsed="true"]) [class*="_sidebarCol"] > div > div {
+    width: var(--dsh-phone-panel) !important;
+    max-width: var(--dsh-phone-panel) !important;
+    border-radius: 0 16px 16px 0;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07), 28px 0 60px rgba(0, 0, 0, 0.5);
+  }
+
+  /* 面板内的列表项给足触控高度 */
+  [class*="_sidebarCol"] nav button,
+  [class*="_sidebarCol"] nav [role="button"] {
+    min-height: 44px;
+  }
+
+  /* 右侧抽屉同理：收起时不动，展开时覆盖 */
+  [class*="_rightbarCol"] {
+    position: relative;
+    z-index: 55;
+    overflow: visible !important;
+  }
+  [class*="_frame"]:not([data-rightbar-collapsed="true"]) [class*="_rightbarCol"] > div > div {
+    width: min(92vw, 420px) !important;
+    border-radius: 16px 0 0 16px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07), -28px 0 60px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ------------------------------------------------------- 会话消息区 */
+[class*="_scrollBody"] {
+  -webkit-overflow-scrolling: touch;
+}
+
+article,
+[class*="_messageBody"],
+[class*="_markdown"] {
+  font-size: 15.5px !important;
+  line-height: 1.62 !important;
+}
+
+[class*="_markdown"] pre,
+[class*="_markdown"] code,
+pre {
+  font-size: 13px !important;
+  border-radius: 10px;
+}
+
+[class*="_markdown"] table,
+table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+[class*="_markdown"] img,
+[class*="_markdown"] video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* ------------------------------------------------- 浮层 / 弹窗 / 编辑器 */
+[role="dialog"],
+[aria-modal="true"] {
+  max-width: min(100vw - 16px, 560px) !important;
+  max-height: calc(100dvh - var(--dsh-phone-safe-top) - var(--dsh-phone-safe-bottom) - 16px) !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+[class*="_monaco"],
+[class*="_editor"] {
+  max-width: 100% !important;
+}
+
+/* ---------------- 聊天页头部：让标题尽可能多拿宽度 ---------------- */
+/* 注意：不要给标题行加内边距 —— 行宽是固定的，加内边距反而把标题挤窄。
+   只放开最小宽度限制，让标题用满可用空间。 */
+[class*="_titleCluster"] {
+  min-width: 0 !important;
+}
+[class*="_titleCluster"] * {
+  min-width: 0;
+}
+[class*="_headerUtilities"],
+[class*="_headerCorner"] {
+  flex: 0 1 auto !important;
+  min-width: 0 !important;
+}
+
+/* ---------------- 输入区与底部状态条：算进底部安全区 ---------------- */
+/* 输入框的直接父容器（不依赖构建期 hash，用 :has 选中） */
+div:has(> [contenteditable="true"]) {
+  padding: 8px 10px !important;
+}
+[class*="_centerCol"] {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+/* 底部那行"轮次 / token / 进度"在手机上字小一点、别挤在一起 */
+[class*="_dock"] {
+  font-size: 12px !important;
+  gap: 10px !important;
+}
