@@ -1,36 +1,53 @@
 # dsh-phone-access
 
-**在手机上访问 [DeepSeek Harness](https://github.com/deepseek-ai)（DSH Desktop）的 Web GUI —— 一条局域网/公网通道 + 一套手机端 UI 适配，不改动 DSH 任何文件。**
+> 让手机上也能用 DeepSeek Harness：一个反向代理 + 一套手机端 UI 适配层，**不改动 DSH 任何文件**。
 
-> DSH Desktop 启动 Harness 时固定使用 `web --host 127.0.0.1 --port 43129`，而 `/api` 有一道浏览器信任栅栏：只接受 loopback、监听器绑定 IP 或 `--trusted-host` 声明的 authority。于是「端口转发 / 直接开公网端口」只能得到一个打得开、任何操作都 **403** 的页面。本项目用一个反向代理把 `Host / Origin / Referer` 重写回 loopback authority，栅栏、authority 绑定的签名 Cookie、同源 Origin 校验三者同时满足，Harness 本身仍只监听 `127.0.0.1`。
-
-English: a reverse proxy + mobile UI layer that makes the DSH Desktop web GUI usable from a phone over LAN, Cloudflare Tunnel or Tailscale, **without modifying any DSH file**.
+---
 
 ## 演示视频（45 秒）
 
-[![演示视频封面](assets/poster.png)](assets/demo.mp4)
-
-![演示动图](assets/demo-preview.gif)
+[![演示视频封面](assets/poster.png)](assets/demo-16x9.mp4)
 
 | 文件 | 规格 | 说明 |
 |---|---|---|
-| [`assets/demo.mp4`](assets/demo.mp4) | 1920×1080 · 30fps · 45s · H.264 + AAC | 正片，带配乐（-13 LUFS），4.5 MB |
-| `assets/demo-preview.gif` | 520px · 8fps | README 内联预览 |
+| [`assets/demo-16x9.mp4`](assets/demo-16x9.mp4) | 1920×1080 · 30fps · 45s · H.264 + AAC | 横屏正片，带配乐，4.1 MB |
+| [`assets/demo-9x16.mp4`](assets/demo-9x16.mp4) | 1080×1920 · 30fps · 45s | **竖屏版**，同一份场景描述，3.7 MB |
+| [`assets/demo.srt`](assets/demo.srt) / [`.vtt`](assets/demo.vtt) | 24 条 | 外挂字幕（从场景描述自动抽出） |
+| [`assets/contact-16x9.png`](assets/contact-16x9.png) | 4×3 拼图 | 每 5 秒一帧，一眼看完整体节奏 |
 
 片子讲了六件事：**403 信任栅栏 → 网关头部重写 → 三种入口（LAN / 隧道 / Tailscale）→ 手机端 UI 适配 → 踩过的三个坑 → 守护自愈与开源发布**。
 
-画面不是录屏，而是**逐帧由时间轴函数 `seek(t)` 算出来的**：任意时刻的画面都由该时刻唯一决定，所以导出稳定可复现。生成脚本都在 `tools/` 里：
+画面不是录屏，而是**逐帧由时间轴函数 `seek(t)` 算出来的**（任意时刻的画面由该时刻唯一决定，导出稳定可复现）。
+
+### 怎么做的：一份场景描述，一条命令
 
 ```bash
-# 1) 渲染画面帧（本机 Edge 无头 + CDP 逐帧截图）并编码成无声 MP4
-node tools/render-video.mjs --fps 30 --out out/silent.mp4
-
-# 2) 合成配乐（分轨 + 卷积混响 + 总线压缩，纯程序合成，无第三方素材）
-python tools/make-audio2.py
-
-# 3) 混流
-ffmpeg -i out/silent.mp4 -i out/audio2.wav -c:v copy -c:a aac -b:a 224k -shortest out/demo.mp4
+node video-engine/build.mjs --spec video-engine/scenes/dsh-phone-access.json \
+     --aspect 16:9 --aspect 9:16 --burn-subs
 ```
+
+这条命令会依次做完并各自质检：
+
+| 步骤 | 输入 | 产物 | 自检 |
+|---|---|---|---|
+| 配乐 | `spec.audio`（和弦段 + 51 个音效事件） | `-audio.wav` | 响度/真峰/频段/空洞/侧链 **7 项** |
+| 字幕 | spec 里的文字元素 | `.srt` / `.vtt` | 24 条 |
+| 渲染 | `spec.sections` | 两个画幅的无声片 | 1350 帧/画幅 |
+| 混流 | 画面 + 配乐 | `-16x9.mp4` / `-9x16.mp4` | — |
+| 质检 | 成片 | 报告 + 接触表 | **6 项** |
+
+**"画声同源"是这套流水线的核心约束**：和弦进行与音效事件表就写在场景 JSON 里，和画面同一份数据——改画面节奏时音频不会掉队。
+
+实测性能：双画幅并行渲染 **6.0 分钟**（串行 8.9 分钟）；瓶颈是逐帧渲染。
+
+画面与声音的质检都是数字化的，不靠人耳人眼：
+
+```
+配乐  [PASS] 响度 -14.0 LUFS · 真峰 -2.0 dBTP · 低频 39.3% · 中频 10.5% · 空气 9.0% · 无空洞 · 侧链 -5.5dB
+成片  [PASS] 分辨率 · 时长 · 30fps · 无黑场 · 接触表 · 混音 -14.3 LUFS
+```
+
+生成脚本全部开源在本仓库 `video-engine/` 下（`build.mjs` / `render.mjs` / `lib.mjs` 组件库 / `make-audio.py` / `qa.mjs` / `subs.mjs` / `compare.mjs`），没有第三方素材：配乐是纯程序合成的。
 
 ---
 

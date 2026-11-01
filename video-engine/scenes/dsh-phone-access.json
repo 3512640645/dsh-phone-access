@@ -1,0 +1,189 @@
+{
+  "title": "dsh-phone-access 演示片",
+  "duration": 45.0,
+  "fps": 30,
+  "audio": {
+    "key": "A minor",
+    "target_lufs": -15,
+    "sections": [
+      { "start": 0.0,  "dur": 4.4, "chord": [220.00, 261.63, 329.63], "root": 110.00, "arp": [440.00, 523.25, 659.26, 440.00] },
+      { "start": 4.2,  "dur": 7.4, "chord": [174.61, 220.00, 261.63], "root": 174.61, "arp": [349.23, 440.00, 523.25, 440.00] },
+      { "start": 11.4, "dur": 7.2, "chord": [261.63, 329.63, 392.00], "root": 130.81, "arp": [523.25, 659.26, 783.99, 659.26] },
+      { "start": 18.4, "dur": 7.2, "chord": [174.61, 220.00, 261.63], "root": 174.61, "arp": [349.23, 523.25, 440.00, 523.25] },
+      { "start": 25.4, "dur": 7.2, "chord": [293.66, 349.23, 440.00], "root": 146.83, "arp": [587.33, 698.46, 440.00, 587.33] },
+      { "start": 32.4, "dur": 6.6, "chord": [261.63, 329.63, 392.00], "root": 130.81, "arp": [659.26, 783.99, 523.25, 783.99] },
+      { "start": 38.6, "dur": 6.4, "chord": [174.61, 220.00, 261.63, 196.00], "root": 174.61, "arp": [349.23, 440.00, 523.25, 698.46] }
+    ],
+    "events": [
+      { "t": 0.10, "type": "whoosh", "dur": 1.15, "amp": 0.085, "f0": 300, "f1": 1700, "seed": 11 },
+      { "t": 0.95, "type": "bell", "freq": 440.00, "amp": 0.105, "pan": -0.2 },
+      { "t": 1.05, "type": "bell", "freq": 659.26, "amp": 0.075, "pan": 0.2 },
+      { "t": 2.30, "type": "whoosh", "dur": 0.5, "amp": 0.045, "f0": 1400, "f1": 2400, "seed": 31 },
+      { "t": 2.35, "type": "click", "tone": 1750, "amp": 0.05 },
+
+      { "t": 4.26, "type": "whoosh", "dur": 0.75, "amp": 0.075, "f0": 420, "f1": 1900, "seed": 12 },
+      { "t": 5.15, "type": "click", "tone": 1250, "amp": 0.055 },
+      { "t": 5.55, "type": "ramp", "count": 10, "span": 2.65, "tone0": 900, "tone1": 2100, "amp0": 0.030, "amp1": 0.050, "panFrom": -0.4, "panTo": 0.4 },
+      { "t": 8.05, "type": "whoosh", "dur": 0.45, "amp": 0.07, "f0": 1800, "f1": 520, "up": false, "seed": 14 },
+      { "t": 8.20, "type": "impact", "amp": 0.20 },
+      { "t": 8.22, "type": "bell", "freq": 146.83, "amp": 0.075, "pan": -0.3 },
+      { "t": 8.26, "type": "bell", "freq": 155.56, "amp": 0.055, "pan": 0.3 },
+      { "t": 8.85, "type": "click", "tone": 820, "amp": 0.045 },
+
+      { "t": 11.55, "type": "whoosh", "dur": 0.8, "amp": 0.08, "f0": 380, "f1": 2000, "seed": 15 },
+      { "t": 12.22, "type": "click", "tone": 1350, "amp": 0.055 },
+      { "t": 12.28, "type": "whoosh", "dur": 0.5, "amp": 0.055, "f0": 1300, "f1": 2600, "seed": 16 },
+      { "t": 12.90, "type": "series", "count": 4, "gap": 0.35, "tone": 1450, "step": 110, "amp": 0.032, "panFrom": -0.3, "panTo": 0.3 },
+      { "t": 13.40, "type": "ramp", "count": 9, "span": 2.15, "tone0": 1000, "tone1": 2300, "amp0": 0.028, "amp1": 0.050, "panFrom": -0.5, "panTo": 0.0 },
+      { "t": 15.45, "type": "bell", "freq": 523.25, "amp": 0.105 },
+      { "t": 15.52, "type": "bell", "freq": 659.26, "amp": 0.085 },
+      { "t": 15.60, "type": "bell", "freq": 783.99, "amp": 0.060 },
+      { "t": 16.20, "type": "click", "tone": 1600, "amp": 0.045 },
+
+      { "t": 18.60, "type": "click", "tone": 1200, "amp": 0.052, "pan": -0.35 },
+      { "t": 18.63, "type": "whoosh", "dur": 0.45, "amp": 0.05, "f0": 700, "f1": 1700, "seed": 50 },
+      { "t": 19.10, "type": "click", "tone": 1420, "amp": 0.048, "pan": 0.0 },
+      { "t": 19.13, "type": "whoosh", "dur": 0.45, "amp": 0.05, "f0": 960, "f1": 2020, "seed": 51 },
+      { "t": 19.60, "type": "click", "tone": 1640, "amp": 0.044, "pan": 0.35 },
+      { "t": 19.63, "type": "whoosh", "dur": 0.45, "amp": 0.05, "f0": 1220, "f1": 2340, "seed": 52 },
+      { "t": 20.45, "type": "series", "count": 7, "gap": 0.45, "tone": 1500, "step": 70, "amp": 0.026, "panFrom": -0.4, "panTo": 0.4 },
+      { "t": 23.35, "type": "bell", "freq": 783.99, "amp": 0.075 },
+
+      { "t": 25.55, "type": "whoosh", "dur": 0.85, "amp": 0.075, "f0": 340, "f1": 1600, "seed": 17 },
+      { "t": 26.30, "type": "click", "tone": 1100, "amp": 0.05 },
+      { "t": 26.90, "type": "whoosh", "dur": 0.5, "amp": 0.065, "f0": 900, "f1": 2500, "seed": 18 },
+      { "t": 26.32, "type": "series", "count": 6, "gap": 0.42, "tone": 1600, "step": 80, "amp": 0.030, "panFrom": -0.3, "panTo": 0.35 },
+      { "t": 28.12, "type": "click", "tone": 1900, "amp": 0.05 },
+      { "t": 29.20, "type": "whoosh", "dur": 0.5, "amp": 0.055, "f0": 2300, "f1": 800, "up": false, "seed": 19 },
+      { "t": 29.90, "type": "bell", "freq": 587.33, "amp": 0.075 },
+
+      { "t": 32.60, "type": "whoosh", "dur": 0.45, "amp": 0.055, "f0": 1100, "f1": 560, "up": false, "seed": 80 },
+      { "t": 32.67, "type": "click", "tone": 1300, "amp": 0.04 },
+      { "t": 33.15, "type": "whoosh", "dur": 0.45, "amp": 0.055, "f0": 1420, "f1": 560, "up": false, "seed": 81 },
+      { "t": 33.22, "type": "click", "tone": 1440, "amp": 0.04 },
+      { "t": 33.70, "type": "whoosh", "dur": 0.45, "amp": 0.055, "f0": 1740, "f1": 560, "up": false, "seed": 82 },
+      { "t": 33.77, "type": "click", "tone": 1580, "amp": 0.04 },
+
+      { "t": 38.70, "type": "riser", "dur": 2.0, "amp": 0.065, "f0": 200, "f1": 820, "seed": 21 },
+      { "t": 40.55, "type": "bell", "freq": 349.23, "amp": 0.095 },
+      { "t": 40.62, "type": "bell", "freq": 440.00, "amp": 0.080 },
+      { "t": 40.70, "type": "bell", "freq": 523.25, "amp": 0.065 },
+      { "t": 41.80, "type": "bell", "freq": 523.25, "amp": 0.100 },
+      { "t": 41.88, "type": "bell", "freq": 659.26, "amp": 0.075 },
+      { "t": 41.96, "type": "bell", "freq": 783.99, "amp": 0.060 },
+      { "t": 42.06, "type": "bell", "freq": 1046.50, "amp": 0.040 }
+    ]
+  },
+  "sections": [
+    {
+      "id": "intro", "name": "开始", "start": 0.0, "end": 4.4,
+      "layers": [
+        { "type": "hud", "persist": true, "props": { "sections": [
+          { "start": 0, "name": "开始" }, { "start": 4.2, "name": "问题" }, { "start": 11.4, "name": "方案" },
+          { "start": 18.4, "name": "三种入口" }, { "start": 25.4, "name": "手机端 UI" },
+          { "start": 32.4, "name": "修过的坑" }, { "start": 38.6, "name": "收尾" }
+        ] } },
+        { "type": "title", "props": {
+          "title": "手机上使用", "accent": "DeepSeek Harness",
+          "subtitle": "一个反向代理 + 一套手机端 UI 适配 · <span style='color:#c9c9d2'>不改动 DSH 任何文件</span>",
+          "tags": ["proxy.mjs", "mobile.css", "mobile.js", "watchdog.ps1"]
+        } }
+      ]
+    },
+    {
+      "id": "problem", "name": "问题", "start": 4.2, "end": 11.4,
+      "layers": [
+        { "type": "pipeline", "props": {
+          "from": { "label": "DSH Desktop", "title": "Harness Web", "lines": [
+            { "in": 5.4, "text": "127.0.0.1:43129" }, { "in": 5.8, "text": "--host 127.0.0.1" } ], "in": 4.3 },
+          "to": { "label": "手机", "title": "任意浏览器", "lines": [{ "in": 5.6, "text": "LAN / 4G / Wi-Fi" }], "in": 4.6 },
+          "packets": [ { "in": 5.5, "from": 5.5, "to": 8.2, "out": 9.4, "color": "#60a5fa" } ],
+          "badges": [ { "in": 8.2, "text": "403 Forbidden", "kind": "err", "left": 41, "top": 25, "vtop": 5 } ],
+          "code": { "in": 6.4, "text": "POST /api/session/list&nbsp;&nbsp;<span style='color:#8b8b96'>Host: 192.168.1.59:8080</span>" }
+        } },
+        { "type": "caption", "props": { "items": [
+          { "in": 8.8, "text": "Host 栅栏只认 <span style='color:#d97757'>loopback</span> / <span style='color:#d97757'>监听器绑定 IP</span> / <span style='color:#d97757'>--trusted-host</span>" },
+          { "in": 9.4, "dim": true, "text": "首页能开，任何操作全 403 —— 单纯端口转发是行不通的" }
+        ] } }
+      ]
+    },
+    {
+      "id": "fix", "name": "方案", "start": 11.4, "end": 18.4,
+      "layers": [
+        { "type": "pipeline", "props": {
+          "from": { "label": "手机", "title": "任意浏览器", "lines": [{ "in": 11.8, "text": "?k= 访问密钥" }], "in": 11.6 },
+          "mid": { "label": "网关", "title": "proxy.mjs", "accent": true, "lines": [
+            { "in": 12.9, "text": "Host → 127.0.0.1:43129" }, { "in": 13.25, "text": "Origin → loopback" },
+            { "in": 13.6, "text": "Cookie 由网关持有" }, { "in": 13.95, "text": "密钥闸门 ?k=" } ], "in": 12.2 },
+          "to": { "label": "Harness", "title": "127.0.0.1:43129", "lines": [{ "in": 12.3, "text": "仍只监听回环" }], "in": 11.8 },
+          "packets": [ { "in": 13.4, "from": 13.4, "to": 15.6, "color": "#4ade80" } ],
+          "badges": [
+            { "in": 15.5, "text": "200 OK", "kind": "ok", "left": 74, "top": 20, "vtop": 4 },
+            { "in": 16.2, "text": "WS 101 Switching Protocols", "kind": "ok", "left": 68, "top": 27, "vtop": 9 }
+          ]
+        } },
+        { "type": "caption", "props": { "items": [
+          { "in": 16.8, "text": "重写头部后：栅栏、签名 Cookie、同源校验<b style='color:#4ade80'> 同时满足</b>" },
+          { "in": 17.2, "dim": true, "text": "Harness 仍只监听 127.0.0.1 —— 一行 DSH 代码都没改" }
+        ] } }
+      ]
+    },
+    {
+      "id": "routes", "name": "三种入口", "start": 18.4, "end": 25.4,
+      "layers": [
+        { "type": "cards", "props": { "columns": 3, "items": [
+          { "in": 18.6, "label": "入口 1", "lblColor": "#4ade80", "title": "局域网直连", "body": "<span class='mono'>http://192.168.1.59:8080/</span>", "foot": "无需装任何东西", "top": 26, "height": 34 },
+          { "in": 19.1, "label": "入口 2", "lblColor": "#60a5fa", "title": "Cloudflare 隧道", "body": "<span class='mono'>https://xxx.trycloudflare.com</span>", "foot": "任何网络可用 · 地址会变", "top": 26, "height": 34 },
+          { "in": 19.6, "label": "入口 3", "lblColor": "#4ade80", "title": "Tailscale 私网", "body": "<span class='mono'>http://dsh-pc:8080/</span>", "foot": "地址固定 · 不暴露公网", "top": 26, "height": 34 }
+        ] } },
+        { "type": "caption", "props": { "items": [
+          { "in": 22.6, "text": "同一个网关，三种入口 · 网卡地址变化时守护脚本自动补绑" }
+        ] } }
+      ]
+    },
+    {
+      "id": "phoneui", "name": "手机端 UI", "start": 25.4, "end": 32.4,
+      "layers": [
+        { "type": "phone", "props": {
+          "frameIn": 25.6, "drawer": { "open": 26.9, "close": 29.9 },
+          "rows": ["手机访问 DeepSeek Harness", "另一个会话"]
+        } },
+        { "type": "bullets", "props": { "items": [
+          { "in": 26.3, "text": "侧栏改<b style='color:#d97757'>覆盖式抽屉</b>：正文 110px → <b style='color:#4ade80'>342px</b>" },
+          { "in": 26.72, "text": "点会话<b style='color:#d97757'>自动收起</b> + 遮罩点击关闭" },
+          { "in": 27.14, "text": "输入框 <b style='color:#d97757'>≥16px</b>，防 iOS 聚焦缩放" },
+          { "in": 27.56, "text": "安全区 / 软键盘 <span class='mono' style='color:#8b8b96'>resizes-content</span>" },
+          { "in": 27.98, "text": "消息 / 表格 / 代码块 / 弹窗按窄屏适配" },
+          { "in": 28.4, "text": "只对移动 UA 注入，<b style='color:#d97757'>桌面零影响</b>（40385B 原样）" }
+        ] } }
+      ]
+    },
+    {
+      "id": "pitfalls", "name": "修过的坑", "start": 32.4, "end": 38.6,
+      "layers": [
+        { "type": "cards", "props": { "columns": 3, "items": [
+          { "in": 32.6, "label": "坑 1", "title": "gzip 未解压", "body": "上游按 Accept-Encoding 回 gzip/br，直接在压缩字节上改 HTML → 手机满屏乱码", "foot": "新增 decodeText() 后再注入", "top": 28, "height": 39 },
+          { "in": 33.15, "label": "坑 2", "title": "?? 批量 URL", "body": "/plugins/??a,b 被 new URL() 当成查询串重写 → 插件全 404，界面起不来", "foot": "改成纯字符串切分", "top": 28, "height": 39 },
+          { "in": 33.7, "label": "坑 3", "title": "setTimeout 不触发", "body": "客户端里 setTimeout 回调一次都不跑（interval 正常）→ 抽屉不自动收起", "foot": "全改事件 + MutationObserver", "top": 28, "height": 39 }
+        ] } },
+        { "type": "caption", "props": { "items": [
+          { "in": 34.9, "text": "每个坑都用「本机 Edge 无头 + CDP 真实点击」回归验证过" }
+        ] } }
+      ]
+    },
+    {
+      "id": "outro", "name": "收尾", "start": 38.6, "end": 45.0,
+      "layers": [
+        { "type": "outro", "props": {
+          "lines": [
+            { "in": 39.2, "text": "守护任务" },
+            { "in": 39.5, "text": "每 5 分钟检查网关与隧道，掉了自动拉起" },
+            { "in": 39.8, "text": "网卡变化自动补绑 Tailscale 网段 · 桌面留最新地址" }
+          ],
+          "repo": { "in": 40.6, "text": "开源已发布 · MIT License", "url": "github.com/3512640645/dsh-phone-access",
+                    "foot": "dsh-phone-access · 反向代理 + 手机端适配，一行 DSH 代码都没改", "footIn": 41.8 }
+        } }
+      ]
+    }
+  ]
+}
